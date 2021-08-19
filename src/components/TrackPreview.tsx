@@ -70,22 +70,29 @@ const TrackPreview: React.FC<ITrackPreviewProps> = ({ track }) => {
         <audio src={track.preview_url} ref={audioRef} id={track.id} />
       )}
       <div
-        className="hover:opacity-100 opacity-0 absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center text-green-500"
-        style={{ ...(isActive && { opacity: 1 }), borderRadius: "50%" }}
+        className="transition-colors hover:opacity-100 opacity-0 absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center text-green-500 rounded-lg"
+        style={{
+          ...(isActive && { opacity: 1, background: "rgba(0,0,0,0.75)" }),
+        }}
       >
-        {isActive ? (
-          <FontAwesomeIcon
-            icon={faStop}
-            className="cursor-pointer"
-            onClick={handlePause}
-          />
-        ) : (
-          <FontAwesomeIcon
-            icon={faPlay}
-            className="cursor-pointer"
-            onClick={handlePlay}
-          />
-        )}
+        <div
+          className="w-[32px] h-[32px] bg-white p-2 flex items-center justify-center"
+          style={{ borderRadius: "50%" }}
+        >
+          {isActive ? (
+            <FontAwesomeIcon
+              icon={faStop}
+              className="cursor-pointer"
+              onClick={handlePause}
+            />
+          ) : (
+            <FontAwesomeIcon
+              icon={faPlay}
+              className="cursor-pointer"
+              onClick={handlePlay}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

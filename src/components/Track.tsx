@@ -17,10 +17,19 @@ const Track: React.FC<ITrackProps> = ({ track, withPreview = false }) => {
         )}
       </div>
       <div className="w-2/3 flex flex-col">
-        <div className="font-bold text-sm">
-          {track.artists.map((a) => a.name).join(", ")}
+        <div className="mb-2">
+          <div className="font-bold text-sm truncate">
+            {track.artists.map((a) => a.name).join(", ")}
+          </div>
+          <div className="text-lg">{track.name}</div>
         </div>
-        <div className="text-xl">{track.name}</div>
+        <a
+          href={track.external_urls.spotify}
+          target="_blank"
+          className="text-xs text-green-400 font-bold hover:underline mb-1 hover:cursor-pointer"
+        >
+          Open in Spotify
+        </a>
       </div>
     </div>
   );
