@@ -8,28 +8,40 @@ const SpotifyAuthorize = () => {
   useEffect(() => {
     const { code } = router.query;
     const getToken = async () => {
+      setError(false);
       try {
         await axios.get("/api/spotify/authorize/" + code);
         router.push("/spotify");
       } catch (e) {
-        throw e;
+        console.error(e);
+        setError(true);
       }
     };
-    try {
-      if (code) getToken();
-    } catch (err) {
-      console.error(err);
-      setError(true);
-    }
+
+    if (code) getToken();
   }, [router.query]);
 
   if (error)
     return (
-      <div>
-        There was an error. <a href="/spotify/login">Try again</a>
-      </div>
+      <main>
+        <div className="absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center text-red-500 font-bold text-lg">
+          <p className="text-center">
+            Sorry! There was an error.
+            <br />
+            <a href="/spotify/login" className="font-normal underline">
+              Try again
+            </a>
+          </p>
+        </div>
+      </main>
     );
-  return <div>Authorizing...</div>;
+  return (
+    <main>
+      <div className="absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center text-green-400 font-bold text-lg">
+        Hang tight, logging you in...
+      </div>
+    </main>
+  );
 };
 
 export default SpotifyAuthorize;
