@@ -22,4 +22,8 @@
   option {
     @apply dark:text-black;
   }
+
+  .text-brand {
+    @apply dark:text-purple-400 text-purple-500;
+  }
 }
