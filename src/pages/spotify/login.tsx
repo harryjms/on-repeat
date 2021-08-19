@@ -47,7 +47,9 @@ export async function getServerSideProps(context: NextPageContext) {
     headers: { host },
   } = context.req;
 
-  SpotifyHelper.setRedirectURI(`http://${host}/spotify/authorize`);
+  const protocol = process.env.NODE_ENV !== "production" ? "http" : "https";
+
+  SpotifyHelper.setRedirectURI(`${protocol}://${host}/spotify/authorize`);
   return {
     props: {
       loginURL: SpotifyHelper.getLoginUrl(),
