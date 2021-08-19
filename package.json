@@ -1,0 +1,27 @@
+{
+  "name": "on-repeat",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Harry Jarman <me@harryjms.uk>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "docker-compose up -d & next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^11.1.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^16.6.2",
+    "@types/react": "^17.0.19",
+    "@types/react-dom": "^17.0.9",
+    "autoprefix": "^1.0.1",
+    "autoprefixer": "^10.3.1",
+    "postcss": "^8.3.6",
+    "tailwindcss": "^2.2.7",
+    "typescript": "^4.3.5"
+  }
+}
