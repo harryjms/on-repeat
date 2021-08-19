@@ -1,3 +1,4 @@
+import { resolveSoa } from "dns";
 import JWTHelper from "../../../../helpers/JWTHelper";
 import { SHAccountPayload } from "../../../../helpers/SpotifyHelper";
 import SpotifySession from "../../../../helpers/SpotifySession";
@@ -17,8 +18,17 @@ export default async (req, res) => {
     spotify: { access_token },
   } = JWTHelper.decode<{ spotify: SHAccountPayload }>(token);
 
-  const SS = new SpotifySession(access_token);
-  const info = await SS.getUserInformation();
+  try {
+    const SS = new SpotifySession(access_token);
+    const info = await SS.getUserInformation();
 
-  return res.json(info);
+    return res.json(info);
+  } catch (err) {
+    if (err.response?.status === 401) {
+      res.status(401).send("Not authorised");
+    } else {
+      console.error(err);
+      res.status(500).send("internal server error");
+    }
+  }
 };
