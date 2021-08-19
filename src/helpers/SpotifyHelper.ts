@@ -18,7 +18,7 @@ export interface SHAccountPayload {
 class SpotifyHelper {
   private readonly clientID: string;
   private readonly clientSecret: string;
-  private readonly redirectURI: string;
+  private redirectURI: string;
   private readonly scopes: string;
   private request = axios.create({
     baseURL: "https://accounts.spotify.com/api",
@@ -31,17 +31,21 @@ class SpotifyHelper {
     this.scopes = opts.scopes;
   }
 
+  public setRedirectURI(redirectURI: string) {
+    this.redirectURI = redirectURI;
+  }
+
   public apiAuthorizationToken() {
     return new Buffer(`${this.clientID}:${this.clientSecret}`).toString(
       "base64"
     );
   }
 
-  getLoginUrl() {
+  public getLoginUrl() {
     return `https://accounts.spotify.com/authorize?client_id=${this.clientID}&response_type=code&redirect_uri=${this.redirectURI}&scope=${this.scopes}`;
   }
 
-  async getAccessAndRefreshToken(code: string) {
+  public async getAccessAndRefreshToken(code: string) {
     const params = new URLSearchParams();
     params.append("grant_type", "authorization_code");
     params.append("code", code);

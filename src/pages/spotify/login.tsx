@@ -1,5 +1,6 @@
 import { faSpotify } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { NextPageContext } from "next";
 import React from "react";
 import SpotifyHelper from "../../helpers/SpotifyHelper";
 
@@ -22,7 +23,12 @@ const SpotifyLogin = ({ loginURL }) => {
   );
 };
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context: NextPageContext) {
+  const {
+    headers: { host },
+  } = context.req;
+
+  SpotifyHelper.setRedirectURI(`http://${host}/spotify/authorize`);
   return {
     props: {
       loginURL: SpotifyHelper.getLoginUrl(),
