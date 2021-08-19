@@ -1,7 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@tailwind variants;
 
 @layer base {
+  html,
+  body {
+    @apply dark:bg-black dark:text-white;
+  }
+
+  main {
+    @apply container;
+  }
+  h1 {
+    @apply text-3xl font-bold mb-4;
+  }
+
+  img.artwork {
+    @apply rounded-lg drop-shadow-xl;
+  }
 }
