@@ -1,5 +1,5 @@
 declare namespace Spotify {
-  export interface TopTracks {
+  export interface Track {
     album: Album;
     artists: Artist[];
     available_markets: string[];

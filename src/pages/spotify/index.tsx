@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Track from "../../components/Track";
 
 const SpotifyHomepage = () => {
   const [loadingTracks, setLoadingTracks] = useState(true);
-  const [tracks, setTracks] = useState<Spotify.TopTracks[]>([]);
+  const [tracks, setTracks] = useState<Spotify.Track[]>([]);
 
   const getData = async () => {
     try {
@@ -28,16 +29,8 @@ const SpotifyHomepage = () => {
       ) : (
         <ul className="grid grid-cols-3 gap-4">
           {tracks.map((track) => (
-            <li key={track.id} className="flex">
-              <div className="w-1/3 mr-4">
-                <img src={track.album.images[0].url} className="artwork" />
-              </div>
-              <div className="w-2/3 flex flex-col">
-                <div className="font-bold text-sm">
-                  {track.artists.map((a) => a.name).join(", ")}
-                </div>
-                <div className="text-xl">{track.name}</div>
-              </div>
+            <li key={track.id}>
+              <Track track={track} withPreview />
             </li>
           ))}
         </ul>
