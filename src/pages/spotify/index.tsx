@@ -9,10 +9,13 @@ const SpotifyHomepage = () => {
   const [loadingTracks, setLoadingTracks] = useState(true);
   const [tracks, setTracks] = useState<Spotify.Track[]>([]);
   const [term, setTerm] = useState("short_term");
+  const [error, setError] = useState(false);
   const router = useRouter();
 
   const getData = async () => {
     try {
+      setLoadingTracks(true);
+      setError(false);
       const { data: userData } = await axios.get("/api/spotify/me");
       setUser(userData);
 
@@ -22,8 +25,11 @@ const SpotifyHomepage = () => {
       setTracks(data.items);
     } catch (err) {
       console.error(err);
+
       if (err.response.status === 401) {
         router.push("/spotify/login");
+      } else {
+        setError(true);
       }
     } finally {
       setLoadingTracks(false);
@@ -34,6 +40,26 @@ const SpotifyHomepage = () => {
     getData();
     window.scrollTo(0, 0);
   }, [term]);
+
+  if (error)
+    return (
+      <div className="w-screen h-screen flex items-center justify-center text-red-500 font-bold">
+        <div className="text-center">
+          <h1 className="text-brand">On Repeat</h1>
+          There was a problem loading the data.
+        </div>
+      </div>
+    );
+
+  if (tracks.length === 0)
+    return (
+      <div className="w-screen h-screen flex items-center justify-center text-green-400 font-bold">
+        <div className="text-center">
+          <h1 className="text-brand">On Repeat</h1>
+          Loading...
+        </div>
+      </div>
+    );
 
   return (
     <>
