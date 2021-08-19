@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiResponse } from "next";
 import JWTHelper from "../../../../helpers/JWTHelper";
 import SpotifyHelper from "../../../../helpers/SpotifyHelper";
 import { serialize } from "cookie";
