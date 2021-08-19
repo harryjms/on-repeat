@@ -10,7 +10,7 @@ const SpotifyAuthorize = () => {
     const getToken = async () => {
       try {
         await axios.get("/api/spotify/authorize/" + code);
-        router.push("/");
+        router.push("/spotify");
       } catch (e) {
         throw e;
       }

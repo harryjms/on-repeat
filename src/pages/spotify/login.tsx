@@ -1,17 +1,24 @@
+import { faSpotify } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import SpotifyHelper from "../../helpers/SpotifyHelper";
 
 const SpotifyLogin = ({ loginURL }) => {
   return (
-    <div>
-      <button
-        onClick={() => {
-          window.location = loginURL;
-        }}
-      >
-        Login with Spotify
-      </button>
-    </div>
+    <main>
+      <div className="absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center">
+        <button
+          onClick={() => {
+            window.location = loginURL;
+          }}
+          className="bg-green-400 hover:bg-green-600 text-white p-4 font-bold text-lg transition-colors"
+          style={{ borderRadius: 40 }}
+        >
+          <FontAwesomeIcon icon={faSpotify} className="mr-2" />
+          Login with Spotify
+        </button>
+      </div>
+    </main>
   );
 };
 

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useRouter } from "next/dist/client/router";
 import React, { useEffect, useState } from "react";
 import Track from "../../components/Track";
 
@@ -6,6 +7,7 @@ const SpotifyHomepage = () => {
   const [loadingTracks, setLoadingTracks] = useState(true);
   const [tracks, setTracks] = useState<Spotify.Track[]>([]);
   const [term, setTerm] = useState("short_term");
+  const router = useRouter();
 
   const getData = async () => {
     try {
@@ -15,6 +17,9 @@ const SpotifyHomepage = () => {
       setTracks(data.items);
     } catch (err) {
       console.error(err);
+      if (err.response.status === 401) {
+        router.push("/spotify/login");
+      }
     } finally {
       setLoadingTracks(false);
     }

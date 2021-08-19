@@ -12,6 +12,8 @@ export default async (req, res) => {
     query: { term },
   } = req;
 
+  if (!token) return res.status(401).send("Not authorized");
+
   const {
     spotify: { access_token },
   } = JWTHelper.decode<{ spotify: SHAccountPayload }>(token);
