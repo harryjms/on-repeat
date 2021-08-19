@@ -8,6 +8,14 @@ export default async (req, res: NextApiResponse) => {
     return res.status(404).send("Not found");
   }
 
+  const {
+    headers: { host },
+  } = req;
+
+  const protocol = process.env.NODE_ENV !== "production" ? "http" : "https";
+
+  SpotifyHelper.setRedirectURI(`${protocol}://${host}/spotify/authorize`);
+
   try {
     const { code } = req.query;
     const data = await SpotifyHelper.getAccessAndRefreshToken(code);
