@@ -1,15 +1,18 @@
 import axios from "axios";
 import { useRouter } from "next/dist/client/router";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Track from "../../components/Track";
 import Head from "next/head";
+import Bar from "../../components/Bar";
+import ShareModal from "../../components/ShareModal";
 
 const SpotifyHomepage = () => {
   const [user, setUser] = useState(null);
-  const [loadingTracks, setLoadingTracks] = useState(true);
   const [tracks, setTracks] = useState<Spotify.Track[]>([]);
   const [term, setTerm] = useState("short_term");
+  const [loadingTracks, setLoadingTracks] = useState(true);
   const [error, setError] = useState(false);
+  const [showShare, setShowShare] = useState(false);
   const router = useRouter();
 
   const getData = async () => {
@@ -41,6 +44,13 @@ const SpotifyHomepage = () => {
     window.scrollTo(0, 0);
   }, [term]);
 
+  const handleShowShare = useCallback(() => {
+    setShowShare(true);
+  }, []);
+
+  const handleHideShare = useCallback(() => {
+    setShowShare(false);
+  }, []);
   if (error)
     return (
       <div className="w-screen h-screen flex items-center justify-center text-red-500 font-bold">
@@ -76,8 +86,8 @@ const SpotifyHomepage = () => {
             <span className="text-green-400">Spotify</span>
           </h1>
         </div>
-        <div className="sticky top-0 z-10 p-4 dark:bg-black bg-white">
-          <div className="rounded-lg dark:bg-gray-800 bg-gray-200 p-2">
+        <div className="sticky top-0 z-10 p-4 dark:bg-black bg-white flex gap-2">
+          <Bar className="flex-1">
             Over the last{" "}
             <select
               value={term}
@@ -90,7 +100,10 @@ const SpotifyHomepage = () => {
               <option value="medium_term">6 months</option>
               <option value="long_term">several years</option>
             </select>
-          </div>
+          </Bar>
+          <Bar>
+            <button onClick={handleShowShare}>Share list</button>
+          </Bar>
         </div>
         <div className="p-4 pt-0">
           {loadingTracks ? (
@@ -106,6 +119,7 @@ const SpotifyHomepage = () => {
           )}
         </div>
       </main>
+      {showShare && <ShareModal onDismiss={handleHideShare} />}
     </>
   );
 };
