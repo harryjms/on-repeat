@@ -9,13 +9,17 @@
   }
 
   main {
-    @apply container;
+    @apply container p-4 md:p-0;
   }
   h1 {
-    @apply text-3xl font-bold mb-4;
+    @apply text-2xl md:text-3xl font-bold mb-4;
   }
 
   img.artwork {
     @apply rounded-lg drop-shadow-xl;
+  }
+
+  option {
+    @apply dark:text-black;
   }
 }

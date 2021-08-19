@@ -9,6 +9,7 @@ export default async (req, res) => {
 
   const {
     cookies: { token },
+    query: { term },
   } = req;
 
   const {
@@ -17,6 +18,6 @@ export default async (req, res) => {
 
   const SS = new SpotifySession(access_token);
 
-  const tracks = await SS.getTopTracks();
+  const tracks = await SS.getTopTracks(50, term);
   res.json(tracks);
 };
