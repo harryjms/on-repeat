@@ -64,7 +64,7 @@ const SpotifyHomepage = () => {
   return (
     <>
       <Head>
-        <title>Spotify Top Track - On Repeat</title>
+        <title>Spotify Top Tracks - On Repeat</title>
       </Head>
       <main>
         <div className="p-4 pb-0">
